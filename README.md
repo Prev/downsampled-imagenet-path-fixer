@@ -51,7 +51,40 @@ $ ls imagenet_32_32/val
 
 # Remove old files
 $ rm Imagenet32_train.zip Imagenet32_val.zip
-$ rm -tf tmp
+$ rm -rf tmp
+```
+
+## How to use in PyTorch
+
+We can load Downsampled ImageNet using `ImageFolder` like original ImageNet.
+
+```python
+import os
+import torch
+import torchvision
+import torchvision.transforms as transforms
+
+
+def get_loaders(datapath, args):
+    traindir = os.path.join(datapath, 'train')
+    valdir = os.path.join(datapath, 'val')
+    normalize = transforms.Normalize(mean=[0.4810, 0.4574, 0.4078],
+                                     std=[0.2146, 0.2104, 0.2138])
+
+    trainset = torchvision.datasets.ImageFolder(traindir, transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        normalize,
+    ]))
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True)
+
+    testset = torchvision.datasets.ImageFolder(valdir, transforms.Compose([
+        transforms.ToTensor(),
+        normalize,
+    ]))
+    testloader = torch.utils.data.DataLoader(testset, batch_size=128, shuffle=False)
+
+    return trainloader, testloader
 ```
 
 ## Reference
