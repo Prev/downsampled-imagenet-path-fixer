@@ -1,14 +1,14 @@
 # Downsampled ImageNet Path Fixer
 
 The official ImageNet website (https://image-net.org/) provides a downsampled ImageNet (resolution is reduced to 8x8, 16x16, 32x32, or 64x64) for faster training.<br>
-However, using Downsampled ImageNet in PyTorch is not inconvenient since its file structure is different from original ImageNet.
+However, using Downsampled ImageNet in PyTorch is inconvenient since its file structure is different from the original ImageNet.
 
-This repo provides a script that converts the Downsampled ImageNet provided in https://image-net.org/ to the structure for `ImageFolder` in PyTorch.
+This repo provides a script that converts the Downsampled ImageNet provided in https://image-net.org to the structure for `ImageFolder` in PyTorch.
 
 ### Step 1: Download Downsampled ImageNet
 
-Download Downsampled ImageNet, and unzip `*.zip` files.<br>
-After upzip the downloaded files, we can obtain files as follows:
+First download the downsampled ImageNet, and unzip `*.zip` files.<br>
+After upzipping the downloaded files, we can obtain files as follow:
 
 ```
 train_data_batch_1   train_data_batch_2  train_data_batch_4  train_data_batch_6  train_data_batch_8  val_data
@@ -17,13 +17,14 @@ train_data_batch_10  train_data_batch_3  train_data_batch_5  train_data_batch_7 
 
 ### Step 2: Run Script
 
-To run script, we have to install depencendies:
+Before running the script, we have to install depencendies:
 
 ```
 $ pip install -r requirements.txt
 ```
 
 Then, we run `fix_pathes.py` with params.
+See [fix_pathes.py](fix_pathes.py) for detail params.
 
 ```
 $ python fix_pathes.py -d path/to/downloaded_data -o path/to/output
@@ -36,7 +37,7 @@ $ python fix_pathes.py -d path/to/downloaded_data -o path/to/output
 $ wget <imagenet32_train_download_path>
 $ wget <imagenet32_val_download_path>
 
-# Create dir and unzip files to the dir
+# Create dir and unzip files into the dir
 $ mkdir tmp
 $ unzip Imagenet32_train.zip -d tmp
 $ unzip Imagenet32_val.zip -d tmp
